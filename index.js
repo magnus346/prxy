@@ -20,6 +20,7 @@ app.get('/', async (req, res) => {
 		console.log(error.response);
 	});
 	res.send(response.data);
+	process.exit();
 })
 
 // Export the Express API
