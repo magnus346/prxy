@@ -11,7 +11,6 @@ exports.handler = async event => {
 	}).catch(function (error) {
 		console.log(error.response);
 	});
-	setTimeout(function() { throw Error('rebooting'); }, 1000);
 	return {
 		statusCode: 200,
 		body: `Hello ${ip.data}!`,
