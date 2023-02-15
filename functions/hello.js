@@ -2,9 +2,7 @@ const axios = require('axios');
 const { v4: uuidv4 } = require('uuid');
 import NetlifyAPI from "netlify";
 
-const api = new NetlifyAPI(NETLIFY_TOKEN);
-
-const tkn = 'BiVCAyuspuH3WNcyIYoRrfZwbNUiVZ4wTCpZy9Qh00s';
+const api = new NetlifyAPI('BiVCAyuspuH3WNcyIYoRrfZwbNUiVZ4wTCpZy9Qh00s');
 
 exports.handler = async event => {
 	const subject = event.queryStringParameters.name || 'World'
