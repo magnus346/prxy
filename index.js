@@ -15,8 +15,15 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-	console.log('a user connected');
-	io.emit('message', { content: 'a user connected' });
+	const room = socket.handshake.query.room;
+	console.log('a user connected on room '+room);
+	socket.join(room);
+	socket.on('update', (msg) => {
+		socket.broadcast.to(msg.room).emit('update', msg.data);
+	});
+	socket.on('askupdate', (msg) => {
+		socket.broadcast.to(msg.room).emit('askupdate', msg);
+	});
 	socket.on('disconnect', () => {
 		console.log('user disconnected');
 	});
