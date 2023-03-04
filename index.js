@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const { v4: uuidv4 } = require('uuid');
 const io = require("socket.io")(server, {
   cors: {
-    origin: "*",
+    origin: true,
     methods: ["GET", "POST"]
   }
 });
