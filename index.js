@@ -1,16 +1,27 @@
-const express = require('express')
-const axios = require('axios');
+const express = require('express');
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
 const { v4: uuidv4 } = require('uuid');
+const io = require("socket.io")(server, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"]
+  }
+});
 
-const app = express()
-const PORT = 3000
+app.get('/', (req, res) => {
+	res.send('<h1>Hello world</h1>');
+});
 
-const vercel_token = 'x6nzGDEq4havOYnRtt5q6hnP';
+io.on('connection', (socket) => {
+	console.log('a user connected');
+	io.emit('message', { content: 'a user connected' });
+	socket.on('disconnect', () => {
+		console.log('user disconnected');
+	});
+});
 
-app.listen(PORT, () => {
-	
-})
-
-app.get('/', async (req, res) => {
-	res.send('hello');
-})
+server.listen(3000, () => {
+	console.log('listening on *:3000');
+});
